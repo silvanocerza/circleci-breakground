@@ -1,0 +1,11 @@
+build:
+  docker:
+    - image: cimg/base:2022.04
+  steps:
+    - run: echo "this is the build job"
+
+test:
+  docker:
+    - image: cimg/base:2022.04
+  steps:
+    - run: echo "this is the test job"

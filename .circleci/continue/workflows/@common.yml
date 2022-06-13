@@ -1,0 +1,4 @@
+build-and-test:
+  jobs:
+    - build
+    - test
