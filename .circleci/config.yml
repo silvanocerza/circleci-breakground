@@ -17,8 +17,8 @@ workflows:
             # the individual atomic CircleCI configs to print clearer messages
             # for debugging reasons
             # Note: Probably if we hash the generated yml we can cache it?
-            ./config-generator.py > generated-config.yml
-            ./parameters-generator.py > generated-parameters.json
+            ./config_generator.py > generated-config.yml
+            ./parameters_generator.py > generated-parameters.json
         - run:
           name: Upload config to workflow artifact
           command: |

@@ -3,7 +3,8 @@
 import pathlib
 import subprocess
 import sys
-from typing import List
+from shutil import copytree
+from typing import Dict, List
 
 
 def find_configs() -> List[pathlib.Path]:
@@ -25,11 +26,27 @@ def validate_config(config: bytes):
         raise res.stderr
 
 
-def merge_config_files(configs: List[pathlib.Path]) -> bytes:
-    # Copy the files into the .circleci folder here.
+def find_config_files() -> Dict[str: List[pathlib.Path]]:
+    # TODO: This is not used now but it can be useful for linting.
+    # I'll leave it here.
+    res = {}
+    for project in pathlib.Path("projects").iterdir():
+        configs = project.glob(".circleci/**/*.yml")
+        res[project.name] = list(configs)
+    return res
 
-    # Create a mapping between the original file and the copied one,
-    # this should ease error reporting.
+
+def merge_config_files() -> bytes:
+    # TODO: Probably we should enforce the naming projects' configs.
+    # <project_name>/.circleci/jobs/@<project_name>.yml should work.
+
+    # Copy the files into the global .circleci folder
+    for project in pathlib.Path("projects").iterdir():
+        project_configs = project / ".circleci"
+        if not project_configs.exists():
+            continue
+        copytree(project_configs, pathlib.Path(
+            ".circleci", "continue"), dirs_exist_ok=True)
 
     # IMPORTANT: Verify that top level keys are not duplicated in different files
     # in the same folder, that's a big no-no since keys are overwritten
