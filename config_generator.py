@@ -20,7 +20,8 @@ def find_configs() -> List[pathlib.Path]:
 def validate_config(config: bytes):
     res = subprocess.run(
         ["circleci", "config", "validate", "-"],
-        input=config
+        input=config,
+        capture_output=True
     )
     if res.returncode:
         raise Exception(res.stderr.decode("utf-8"))
