@@ -14,6 +14,11 @@ jobs:
     steps:
       - advanced-checkout/shallow-checkout
       - run:
+          name: Update CircleCI CLI
+          command: |
+            circleci update
+            circleci switch
+      - run:
           name: Generate config
           command: |
             # These two scripts will also have the task to lint and verify
