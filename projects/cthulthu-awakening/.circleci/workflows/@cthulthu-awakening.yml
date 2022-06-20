@@ -1,6 +1,5 @@
 cthulhu-awakening:
-  when:
-    - equal: ["wakey-wakey", << pipeline.parameters.time >>]
+  when: << pipeline.parameters.wakey_wakey >>
   jobs:
     - cthulhu-dreams
     - cthulhu-wakes

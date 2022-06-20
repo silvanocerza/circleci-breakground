@@ -1,0 +1,3 @@
+wakey_wakey:
+  type: boolean
+  default: false

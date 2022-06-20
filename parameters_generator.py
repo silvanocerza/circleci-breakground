@@ -11,6 +11,7 @@ def generate_parameters() -> Dict:
     # workflows/jobs we must run.
     return {
         "should_it_run": True,
+        "wakey_wakey": True,
     }
 
 

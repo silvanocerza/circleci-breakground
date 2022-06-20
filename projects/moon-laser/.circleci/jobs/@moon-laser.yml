@@ -1,21 +1,27 @@
 calibrate:
+  docker:
+    - image: cimg/base:2022.04
   steps:
     - run:
-      name: Calibrating
-      command: echo "Calibrating laser..."
+        name: Calibrating
+        command: echo "Calibrating laser..."
 
 point:
   parameters:
     target:
       type: string
       default: "Moon"
+  docker:
+    - image: cimg/base:2022.04
   steps:
     - run:
-      name: Pointing laser
-      command: echo "Pointing laser to << parameters.target >>"
+        name: Pointing laser
+        command: echo "Pointing laser to << parameters.target >>"
 
 shoot:
+  docker:
+    - image: cimg/base:2022.04
   steps:
     - run:
-      name: SHOOT!
-      command: echo "BZZZZZZZ"
+        name: SHOOT!
+        command: echo "BZZZZZZZ"
