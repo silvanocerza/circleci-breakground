@@ -23,7 +23,7 @@ def validate_config(config: bytes):
         input=config
     )
     if res.returncode:
-        raise res.stderr
+        raise Exception(res.stderr.decode("utf-8"))
 
 
 def find_config_files() -> Dict[str, List[pathlib.Path]]:
