@@ -53,10 +53,10 @@ def merge_config_files(circleci_cli: str) -> bytes:
 def generate_config(circleci_cli: str):
     generated = merge_config_files(circleci_cli)
 
-    # try:
-    #     validate_config(circleci_cli, generated)
-    # except Exception as e:
-    #     sys.exit(f"Config validation failed after merging: {e}")
+    try:
+        validate_config(circleci_cli, generated)
+    except Exception as e:
+        sys.exit(f"Config validation failed after merging: {e}")
 
     return generated.decode("utf-8")
 
