@@ -26,7 +26,7 @@ jobs:
             # the individual atomic CircleCI configs to print clearer messages
             # for debugging reasons
             # Note: Probably if we hash the generated yml we can cache it?
-            ./config_generator.py --circleci-cli /tmp/cli/circleci > generated-config.yml
+            ./config_generator.py --circleci-cli /tmp/cli > generated-config.yml
             ./parameters_generator.py > generated-parameters.json
       - store_artifacts:
           path: generated-config.yml
