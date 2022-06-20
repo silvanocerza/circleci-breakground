@@ -10,7 +10,7 @@ orbs:
 jobs:
   config-generation:
     docker:
-      - image: cimg/base:2022.04
+      - image: cimg/python:3.10
     steps:
       - advanced-checkout/shallow-checkout
       - run:
