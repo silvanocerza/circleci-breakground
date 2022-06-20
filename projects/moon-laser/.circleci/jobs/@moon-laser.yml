@@ -1,0 +1,21 @@
+calibrate:
+  steps:
+    - run:
+      name: Calibrating
+      command: echo "Calibrating laser..."
+
+point:
+  parameters:
+    target:
+      type: string
+      default: "Moon"
+  steps:
+    - run:
+      name: Pointing laser
+      command: echo "Pointing laser to << parameters.target >>"
+
+shoot:
+  steps:
+    - run:
+      name: SHOOT!
+      command: echo "BZZZZZZZ"

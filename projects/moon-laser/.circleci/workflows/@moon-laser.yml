@@ -1,0 +1,7 @@
+evil-plan:
+  jobs:
+    - calibrate
+    - point:
+        name: point
+        target: "Sgr A*"
+    - shoot

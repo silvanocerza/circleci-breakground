@@ -1,0 +1,11 @@
+cthulhu-dreams:
+  steps:
+    - run:
+      name: Sssssh
+      command: echo "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn"
+
+cthulhu-wakes:
+  steps:
+    - run:
+      name: Let the world know!
+      command: echo "Oh hey!"
