@@ -22,13 +22,12 @@ jobs:
             # Note: Probably if we hash the generated yml we can cache it?
             ./config_generator.py > generated-config.yml
             ./parameters_generator.py > generated-parameters.json
-      - run:
-          name: Upload config to workflow artifact
-          command: |
-            # Here we'll upload the generated files, they can be useful
-            # for debugging purpose in case of failures
-            echo "Uploading generated-config.yml
-            echo "Uploading generated-parameters.json
+      - store_artifacts:
+          path: generated-config.yml
+          destination: generated-config.yml
+      - store_artifacts:
+          path: generated-parameters.json
+          destination: generated-parameters.json
       - continuation/continue:
           configuration_path: ./generated-config.yml
           parameters: ./generated-parameters.json
