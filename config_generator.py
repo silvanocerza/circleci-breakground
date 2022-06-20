@@ -55,7 +55,7 @@ def generate_config():
     generated = merge_config_files()
 
     try:
-        validate_config([generated])
+        validate_config(generated)
     except Exception as e:
         sys.exit(f"Config validation failed after merging: {e}")
 
