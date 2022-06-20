@@ -7,16 +7,6 @@ from shutil import copytree
 from typing import Dict, List
 
 
-def find_configs() -> List[pathlib.Path]:
-    # TODO: Use various env things to determine which config files
-    # we need to merge together
-
-    # Probably we're gonna fake it for now
-    # NOTE: Might be cool to have a lookup table to know which file is
-    # necessary for whatever project.
-    return []
-
-
 def validate_config(config: bytes):
     res = subprocess.run(
         ["circleci", "config", "validate", "-"],
@@ -27,7 +17,7 @@ def validate_config(config: bytes):
         raise Exception(res.stderr.decode("utf-8"))
 
 
-def find_config_files() -> Dict[str, List[pathlib.Path]]:
+def find_configs() -> Dict[str, List[pathlib.Path]]:
     # TODO: This is not used now but it can be useful for linting.
     # I'll leave it here.
     res = {}
@@ -62,13 +52,7 @@ def merge_config_files() -> bytes:
 
 
 def generate_config():
-    configs = find_configs()
-    try:
-        validate_config(configs)
-    except Exception as e:
-        sys.exit(f"Config validation failed before merging: {e}")
-
-    generated = merge_config_files(configs)
+    generated = merge_config_files()
 
     try:
         validate_config([generated])
