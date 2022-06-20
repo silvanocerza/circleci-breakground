@@ -15,6 +15,8 @@ jobs:
       - advanced-checkout/shallow-checkout
       - run:
           name: Install newer CircleCI CLI
+          environment:
+            DESTDIR: /tmp
           command: |
             curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | bash
       - run:
@@ -24,7 +26,7 @@ jobs:
             # the individual atomic CircleCI configs to print clearer messages
             # for debugging reasons
             # Note: Probably if we hash the generated yml we can cache it?
-            ./config_generator.py > generated-config.yml
+            ./config_generator.py --circleci-cli /tmp/circleci > generated-config.yml
             ./parameters_generator.py > generated-parameters.json
       - store_artifacts:
           path: generated-config.yml

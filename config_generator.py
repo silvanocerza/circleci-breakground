@@ -6,9 +6,9 @@ from shutil import copytree
 from typing import Dict, List
 
 
-def validate_config(config: bytes):
+def validate_config(circleci_cli: str, config: bytes):
     res = subprocess.run(
-        ["circleci", "config", "validate", "-"],
+        [circleci_cli, "config", "validate", "-"],
         input=config,
         capture_output=True
     )
@@ -26,7 +26,7 @@ def find_configs() -> Dict[str, List[pathlib.Path]]:
     return res
 
 
-def merge_config_files() -> bytes:
+def merge_config_files(circleci_cli: str) -> bytes:
     # TODO: Probably we should enforce the naming projects' configs.
     # <project_name>/.circleci/jobs/@<project_name>.yml should work.
 
@@ -43,18 +43,18 @@ def merge_config_files() -> bytes:
     # with no warning.
 
     res = subprocess.run(
-        ["circleci", "config", "pack", ".circleci/continue"],
+        [circleci_cli, "config", "pack", ".circleci/continue"],
         capture_output=True
     )
 
     return res.stdout
 
 
-def generate_config():
-    generated = merge_config_files()
+def generate_config(circleci_cli: str):
+    generated = merge_config_files(circleci_cli)
 
     # try:
-    #     validate_config(generated)
+    #     validate_config(circleci_cli, generated)
     # except Exception as e:
     #     sys.exit(f"Config validation failed after merging: {e}")
 
@@ -62,6 +62,14 @@ def generate_config():
 
 
 if __name__ == "__main__":
-    config = generate_config()
+    import argparse
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--circleci-cli", type=str, default="circleci",
+                        help="Path to CircleCI CLI")
+
+    args = parser.parse_args()
+
+    config = generate_config(args.circleci_cli)
 
     print(config)
