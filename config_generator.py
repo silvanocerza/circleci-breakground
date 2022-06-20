@@ -26,7 +26,7 @@ def validate_config(config: bytes):
         raise res.stderr
 
 
-def find_config_files() -> Dict[str: List[pathlib.Path]]:
+def find_config_files() -> Dict[str, List[pathlib.Path]]:
     # TODO: This is not used now but it can be useful for linting.
     # I'll leave it here.
     res = {}
