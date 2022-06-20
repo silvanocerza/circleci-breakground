@@ -1,0 +1,3 @@
+should_it_run:
+  type: boolean
+  default: true
