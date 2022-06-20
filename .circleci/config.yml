@@ -6,11 +6,12 @@ setup: true
 orbs:
   continuation: circleci/continuation@0.3.1
 
-workflows:
-  always-ran:
-    jobs:
-      steps:
-        - run:
+jobs:
+  config-generation:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - run:
           name: Generate config
           command: |
             # These two scripts will also have the task to lint and verify
@@ -19,13 +20,18 @@ workflows:
             # Note: Probably if we hash the generated yml we can cache it?
             ./config_generator.py > generated-config.yml
             ./parameters_generator.py > generated-parameters.json
-        - run:
+      - run:
           name: Upload config to workflow artifact
           command: |
             # Here we'll upload the generated files, they can be useful
             # for debugging purpose in case of failures
             echo "Uploading generated-config.yml
             echo "Uploading generated-parameters.json
-        - continuation/continue:
-            config-path: ./generated-config.yml
-            parameters: ./generated-parameters.json
+      - continuation/continue:
+          configuration_path: ./generated-config.yml
+          parameters: ./generated-parameters.json
+
+workflows:
+  always-ran:
+    jobs:
+      - config-generation
