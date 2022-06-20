@@ -14,10 +14,9 @@ jobs:
     steps:
       - advanced-checkout/shallow-checkout
       - run:
-          name: Update CircleCI CLI
+          name: Install newer CircleCI CLI
           command: |
-            circleci update
-            circleci switch
+            snap install circleci
       - run:
           name: Generate config
           command: |
