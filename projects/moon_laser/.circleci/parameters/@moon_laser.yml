@@ -1,0 +1,3 @@
+zaap:
+  type: boolean
+  default: false
