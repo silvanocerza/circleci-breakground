@@ -30,6 +30,9 @@ def generate_parameters() -> Dict:
         # Root parameters
         __name__: {
             "should_it_run": True,
+            "test": {
+                "data": True
+            }
         }
     }
 
